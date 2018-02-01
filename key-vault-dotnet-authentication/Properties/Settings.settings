@@ -1,0 +1,27 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="key_vault_dotnet_authentication.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="AZURE_RESOURCE_GROUP" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">azure-sample-group</Value>
+    </Setting>
+    <Setting Name="AZURE_LOCATION" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">westus</Value>
+    </Setting>
+    <Setting Name="AZURE_CLIENT_ID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">REPLACE-ME</Value>
+    </Setting>
+    <Setting Name="AZURE_CLIENT_OID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">REPLACE-ME</Value>
+    </Setting>
+    <Setting Name="AZURE_CLIENT_SECRET" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">REPLACE-ME</Value>
+    </Setting>
+    <Setting Name="AZURE_TENANT_ID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">REPLACE-ME</Value>
+    </Setting>
+    <Setting Name="AZURE_SUBSCRIPTION_ID" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">REPLACE-ME</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
