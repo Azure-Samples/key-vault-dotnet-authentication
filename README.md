@@ -1,7 +1,7 @@
 ---
 services: key-vault
 platforms: dotnet
-author: dadesber
+author: lusitanian
 ---
 
 # Authentication sample for Azure Key Vault using the Azure Node SDK
@@ -13,34 +13,35 @@ The Key Vault client is then used to authenticate to the vault and set/retrieve 
 
 ## How to run this sample
 
-1. If you don't already have it, get and install Visual Studio. 
+1. If you don't already have it, get and install [.NET](https://www.microsoft.com/net)
 
 2. Clone the repo.
 
    ```
    git clone https://github.com/Azure-Samples/key-vault-dotnet-authentication.git key-vault
+   cd key-vault
    ```
 
-3. Create an Azure service principals, using one of the following:
+3. Create an Azure service principal, using one of the following:
    - [Azure CLI](https://azure.microsoft.com/documentation/articles/resource-group-authenticate-service-principal-cli/),
    - [PowerShell](https://azure.microsoft.com/documentation/articles/resource-group-authenticate-service-principal/)
    - [Azure Portal](https://azure.microsoft.com/documentation/articles/resource-group-create-service-principal-portal/). 
 
-    This service principal is to run the sample on your azure account.
+    This service principal is to run the sample on your Azure account.
 
-4. Set the variables in App.config using the information from the service principal that you created.
+5. Set the following environment variables using the information from the service principal that you created.
 
    ```
-   AZURE_SUBSCRIPTION_ID={your subscription id}
-   AZURE_CLIENT_ID={your client id}
-   AZURE_CLIENT_SECRET={your client secret}
-   AZURE_TENANT_ID={your tenant id as a GUID}
-   AZURE_CLIENT_OID={Object id of the service principal}
+   export AZURE_SUBSCRIPTION_ID={your subscription id}
+   export AZURE_CLIENT_ID={your client id}
+   export AZURE_CLIENT_SECRET={your client secret}
+   export AZURE_TENANT_ID={your tenant id as a GUID}
+   export AZURE_CLIENT_OID={Object id of the service principal}
    ```
 
-5. Open the sample solution in Visual Studio. Build and run. 
+> On Windows, use `set` instead of `export`.
 
-## References and further reading
+5. Run the project with `dotnet run`
 
 - [Azure SDK for .NET](https://github.com/Azure/azure-sdk-for-net)
 - [Azure KeyVault Documentation](https://azure.microsoft.com/en-us/documentation/services/key-vault/)
