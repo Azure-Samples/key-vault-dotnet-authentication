@@ -134,6 +134,9 @@ namespace key_vault_dotnet_authentication
         {
             Console.WriteLine("Azure Key Vault Authentication Sample");
             KeyVaultAuthSample sample = new KeyVaultAuthSample();
+
+            // Any synchronous invocation of asyncronous code (such as KV API calls) should follow the below pattern of calling ConfigureAwait(false) to avoid deadlock
+            // Please see https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
             sample.run().ConfigureAwait(false).GetAwaiter().GetResult();
 
             Console.WriteLine("Press any key to continue.");
