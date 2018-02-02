@@ -6,19 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-      <PackageReference Include="Hyak.Common" Version="1.0.2" />
-      <PackageReference Include="Microsoft.Azure.Common" Version="2.1.0" />
-      <PackageReference Include="Microsoft.Azure.Common.Dependencies" Version="1.0.0" />
       <PackageReference Include="Microsoft.Azure.KeyVault" Version="2.3.2" />
       <PackageReference Include="Microsoft.Azure.KeyVault.WebKey" Version="2.0.7" />
       <PackageReference Include="Microsoft.Azure.Management.Graph.RBAC.Fluent" Version="1.4.1" />
       <PackageReference Include="Microsoft.Azure.Management.KeyVault.Fluent" Version="1.4.1" />
       <PackageReference Include="Microsoft.Azure.Management.ResourceManager.Fluent" Version="1.4.1" />
-      <PackageReference Include="Microsoft.Bcl" Version="1.1.9" />
-      <PackageReference Include="Microsoft.Bcl.Async" Version="1.0.168" />
-      <PackageReference Include="Microsoft.Bcl.Build" Version="1.0.14" />
       <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="3.19.1" />
-      <PackageReference Include="Microsoft.Net.Http" Version="2.2.22" />
       <PackageReference Include="Microsoft.Rest.ClientRuntime" Version="2.3.10" />
       <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure" Version="3.3.11" />
       <PackageReference Include="Microsoft.Rest.ClientRuntime.Azure.Authentication" Version="2.3.2" />

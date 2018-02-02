@@ -60,15 +60,11 @@ namespace key_vault_dotnet_authentication
             Console.WriteLine("Authenticating to Key Vault using ADAL callback.");
             Console.WriteLine(vaultBaseURL);
 
-            // Create a token cache which will be used by AuthenticationContext in the callback.
-            // Note that creating the cache in an upper scope is necessary such that it doesn't get destroyed between invocations. 
-            TokenCache tokenCache = new TokenCache();
-
             // Set up a KV Client with an ADAL authentication callback function
             KeyVaultClient kvClient = new KeyVaultClient(
                 async (string authority, string resource, string scope) =>
                 {
-                    var authContext = new AuthenticationContext(authority, tokenCache);
+                    var authContext = new AuthenticationContext(authority);
                     ClientCredential clientCred = new ClientCredential(settings.ClientID, settings.ClientSecret);
                     AuthenticationResult result = await authContext.AcquireTokenAsync(resource, clientCred);
                     if (result == null)
