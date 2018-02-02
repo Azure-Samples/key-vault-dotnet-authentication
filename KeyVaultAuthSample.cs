@@ -134,7 +134,7 @@ namespace key_vault_dotnet_authentication
         {
             Console.WriteLine("Azure Key Vault Authentication Sample");
             KeyVaultAuthSample sample = new KeyVaultAuthSample();
-            sample.run().Wait();
+            sample.run().ConfigureAwait(false).GetAwaiter().GetResult();
 
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
