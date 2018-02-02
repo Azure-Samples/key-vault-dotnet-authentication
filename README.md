@@ -4,7 +4,7 @@ platforms: dotnet
 author: lusitanian
 ---
 
-# Authentication sample for Azure Key Vault using the Azure Node SDK
+# Authentication sample for Azure Key Vault using the Azure .NET SDK
 
 This sample repo demonstrates how to connect and authenticate to an Azure Key Vault vault. 
 To do so, it first uses the Key Vault Management Client to create a vault.
