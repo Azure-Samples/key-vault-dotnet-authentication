@@ -55,7 +55,7 @@ namespace key_vault_dotnet_authentication
         // Set up sample's settings using environment variables
         private Settings settings = Settings.FromEnvironment();
 
-        private async Task authUsingADALCallback(string vaultBaseURL)
+        private async Task authUsingADALCallbackAsync(string vaultBaseURL)
         {
             Console.WriteLine("Authenticating to Key Vault using ADAL callback.");
             Console.WriteLine(vaultBaseURL);
@@ -82,7 +82,7 @@ namespace key_vault_dotnet_authentication
             Console.WriteLine("Retrieved \"test-secret\", value=\"" + s.Value + "\"");
         }
 
-        public async Task run()
+        public async Task RunAsync()
         {
             // Generate a random name for a new vault
             String vaultName = Util.generateRandomVaultId();
@@ -127,14 +127,17 @@ namespace key_vault_dotnet_authentication
             // Add a delay to wait for KV DNS record to be created. See: https://github.com/Azure/azure-sdk-for-node/pull/1938
             System.Threading.Thread.Sleep(15000);
 
-            await authUsingADALCallback(vault.Properties.VaultUri);
+            await authUsingADALCallbackAsync(vault.Properties.VaultUri);
         }
 
         public static void Main(String[] args)
         {
             Console.WriteLine("Azure Key Vault Authentication Sample");
             KeyVaultAuthSample sample = new KeyVaultAuthSample();
-            sample.run().Wait();
+
+            // Any synchronous invocation of asyncronous code (such as KV API calls) should follow the below pattern of calling ConfigureAwait(false) to avoid deadlock
+            // Please see https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+            Task.Run( () => sample.RunAsync().ConfigureAwait(false).GetAwaiter().GetResult() );
 
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
