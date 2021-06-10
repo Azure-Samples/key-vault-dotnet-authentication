@@ -6,8 +6,6 @@ using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Models;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace key_vault_dotnet_authentication
