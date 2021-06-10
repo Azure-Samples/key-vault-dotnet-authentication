@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "key-vault-dotnet-authentication", "key-vault-dotnet-authentication.csproj", "{B88A79F0-BD5C-450A-9DD1-EDC77AF728DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B88A79F0-BD5C-450A-9DD1-EDC77AF728DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B88A79F0-BD5C-450A-9DD1-EDC77AF728DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B88A79F0-BD5C-450A-9DD1-EDC77AF728DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B88A79F0-BD5C-450A-9DD1-EDC77AF728DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A1DFB74-0E62-42A6-9D39-4EAC0E0D8900}
+	EndGlobalSection
+EndGlobal
