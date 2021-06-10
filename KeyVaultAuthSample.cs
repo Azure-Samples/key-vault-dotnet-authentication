@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using Microsoft.Azure.KeyVault;
-using Microsoft.Azure.KeyVault.Models;
-using Microsoft.Azure.Management.ResourceManager.Fluent;
-using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
+﻿using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Microsoft.Azure.Management.KeyVault.Fluent;
 using Microsoft.Azure.Management.KeyVault.Fluent.Models;
-using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using Microsoft.Azure.Management.ResourceManager.Fluent;
+using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Models;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace key_vault_dotnet_authentication
 {
@@ -60,26 +57,25 @@ namespace key_vault_dotnet_authentication
             Console.WriteLine("Authenticating to Key Vault using ADAL callback.");
             Console.WriteLine(vaultBaseURL);
 
-            // Set up a KV Client with an ADAL authentication callback function
-            KeyVaultClient kvClient = new KeyVaultClient(
-                async (string authority, string resource, string scope) =>
-                {
-                    var authContext = new AuthenticationContext(authority);
-                    ClientCredential clientCred = new ClientCredential(settings.ClientID, settings.ClientSecret);
-                    AuthenticationResult result = await authContext.AcquireTokenAsync(resource, clientCred);
-                    if (result == null)
-                    {
-                        throw new InvalidOperationException("Failed to retrieve access token for Key Vault");
-                    }
-
-                    return result.AccessToken;
-                }
-            );
+            var credential = new DefaultAzureCredential();
+            SecretClient secretClient = new SecretClient(new Uri(vaultBaseURL), credential);
 
             // Set and get an example secret
-            await kvClient.SetSecretAsync(vaultBaseURL, "test-secret", "test-secret-value-using-adal");
-            SecretBundle s = await kvClient.GetSecretAsync(vaultBaseURL, "test-secret");
-            Console.WriteLine("Retrieved \"test-secret\", value=\"" + s.Value + "\"");
+            await secretClient.SetSecretAsync("test-secret", "test-secret-value-using-adal");
+
+            await foreach (SecretProperties secret in secretClient.GetPropertiesOfSecretsAsync())
+            {
+                if (secret.Managed) continue;
+
+                // Getting a disabled secret will fail, so skip disabled secrets.
+                if (!secret.Enabled.GetValueOrDefault())
+                {
+                    continue;
+                }
+
+                KeyVaultSecret secretWithValue = await secretClient.GetSecretAsync(secret.Name);
+                Console.WriteLine("Retrieved \"test-secret\", value=\"" + secretWithValue.Value + "\"");
+            }
         }
 
         public async Task RunAsync()
@@ -94,7 +90,6 @@ namespace key_vault_dotnet_authentication
                 settings.TenantID,
                 AzureEnvironment.AzureGlobalCloud
             );
-
 
             // Ensure that our sample resource group exists. 
             Console.WriteLine("Creating sample resource group");
