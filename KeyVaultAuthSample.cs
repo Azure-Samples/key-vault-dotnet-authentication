@@ -1,12 +1,12 @@
-﻿using Azure.Identity;
+﻿using System;
+using System.Threading.Tasks;
+using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using Microsoft.Azure.Management.KeyVault.Fluent;
 using Microsoft.Azure.Management.KeyVault.Fluent.Models;
 using Microsoft.Azure.Management.ResourceManager.Fluent;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Authentication;
 using Microsoft.Azure.Management.ResourceManager.Fluent.Models;
-using System;
-using System.Threading.Tasks;
 
 namespace key_vault_dotnet_authentication
 {
@@ -55,25 +55,12 @@ namespace key_vault_dotnet_authentication
             Console.WriteLine("Authenticating to Key Vault using ADAL callback.");
             Console.WriteLine(vaultBaseURL);
 
-            var credential = new DefaultAzureCredential();
-            SecretClient secretClient = new SecretClient(new Uri(vaultBaseURL), credential);
+            SecretClient secretClient = new SecretClient(new Uri(vaultBaseURL), new DefaultAzureCredential());
 
             // Set and get an example secret
             await secretClient.SetSecretAsync("test-secret", "test-secret-value-using-adal");
-
-            await foreach (SecretProperties secret in secretClient.GetPropertiesOfSecretsAsync())
-            {
-                if (secret.Managed) continue;
-
-                // Getting a disabled secret will fail, so skip disabled secrets.
-                if (!secret.Enabled.GetValueOrDefault())
-                {
-                    continue;
-                }
-
-                KeyVaultSecret secretWithValue = await secretClient.GetSecretAsync(secret.Name);
-                Console.WriteLine("Retrieved \"test-secret\", value=\"" + secretWithValue.Value + "\"");
-            }
+            KeyVaultSecret secretWithValue = await secretClient.GetSecretAsync("test-secret");
+            Console.WriteLine("Retrieved \"test-secret\", value=\"" + secretWithValue.Value + "\"");
         }
 
         public async Task RunAsync()
